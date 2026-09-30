@@ -2,7 +2,10 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>Coti Carnet · Webs para comercios del barrio</title>
     <meta
       name="description"
@@ -52,6 +55,7 @@
       html {
         -webkit-text-size-adjust: 100%;
         scroll-behavior: smooth;
+        overflow-x: hidden;
       }
       body {
         margin: 0;
@@ -105,7 +109,21 @@
       .wrap {
         max-width: 800px;
         margin: 0 auto;
-        padding: 0 16px;
+        padding: 0 max(16px, env(safe-area-inset-right)) 0
+          max(16px, env(safe-area-inset-left));
+      }
+      @media (min-width: 640px) {
+        .wrap {
+          padding-left: max(24px, env(safe-area-inset-left));
+          padding-right: max(24px, env(safe-area-inset-right));
+        }
+      }
+      @media (min-width: 1024px) {
+        .wrap {
+          max-width: 1000px;
+          padding-left: 32px;
+          padding-right: 32px;
+        }
       }
 
       /* Encabezado */
@@ -192,6 +210,8 @@
         line-height: 1.08;
         margin: 0 0 18px;
         letter-spacing: -0.5px;
+        max-width: 760px;
+        text-wrap: balance;
       }
       .hero h2 em {
         font-style: italic;
@@ -562,7 +582,7 @@
         display: grid;
         gap: 14px;
       }
-      @media (min-width: 640px) {
+      @media (min-width: 760px) {
         .items {
           grid-template-columns: repeat(3, 1fr);
         }
@@ -735,8 +755,8 @@
 
       .wa-float {
         position: fixed;
-        right: 16px;
-        bottom: 16px;
+        right: max(16px, env(safe-area-inset-right));
+        bottom: max(16px, env(safe-area-inset-bottom));
         width: 58px;
         height: 58px;
         border-radius: 50%;
@@ -774,6 +794,144 @@
       }
       svg {
         flex: none;
+      }
+
+      /* Pantallas táctiles: sin efecto "levantado" que queda trabado */
+      @media (hover: none) {
+        .btn:hover:not(:active),
+        .demo:hover,
+        .item:hover,
+        .wa-float:hover {
+          transform: none;
+        }
+        .btn:hover .arrow {
+          transform: none;
+        }
+      }
+
+      /* Celulares chicos */
+      @media (max-width: 480px) {
+        header {
+          padding-top: 24px;
+        }
+        .hero {
+          padding-top: 28px;
+        }
+        .hero p {
+          font-size: 16px;
+        }
+        .hero-actions .btn {
+          flex: 1 1 100%;
+        }
+        .stats {
+          flex-direction: column;
+        }
+        section {
+          padding-top: 44px;
+        }
+        .demo {
+          padding: 12px 12px 18px;
+        }
+        .demo-body {
+          padding: 0 4px;
+        }
+        .demo .btn {
+          width: 100%;
+        }
+        .item {
+          padding: 18px;
+        }
+        .trust {
+          padding: 16px;
+          font-size: 14px;
+        }
+        .cta {
+          margin-top: 48px;
+          padding: 32px 18px;
+          border-radius: 20px;
+        }
+        .cta small {
+          justify-content: center;
+        }
+        .wa-float {
+          width: 52px;
+          height: 52px;
+        }
+      }
+      @media (max-width: 360px) {
+        .mono {
+          width: 44px;
+          height: 44px;
+          font-size: 19px;
+          border-radius: 13px;
+        }
+        .brand h1 {
+          font-size: 22px;
+        }
+        .brand p {
+          font-size: 13px;
+        }
+        .pill {
+          font-size: 12px;
+        }
+        .btn {
+          padding: 13px 18px;
+        }
+        .steps li {
+          padding-left: 50px;
+        }
+        .pv-slots span,
+        .pv-days span {
+          font-size: 9px;
+        }
+      }
+
+      /* Escritorio */
+      @media (min-width: 1024px) {
+        header {
+          padding-top: 40px;
+        }
+        .hero {
+          padding: 72px 0 24px;
+        }
+        .hero h2 {
+          font-size: 56px;
+        }
+        .hero p {
+          font-size: 18px;
+        }
+        section {
+          padding-top: 88px;
+        }
+        section h3 {
+          margin-bottom: 30px;
+        }
+        .demos {
+          gap: 24px;
+        }
+        .preview {
+          height: 190px;
+        }
+        .items {
+          gap: 18px;
+        }
+        .item {
+          padding: 24px;
+        }
+        .steps {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 8px 48px;
+          margin-bottom: 20px;
+        }
+        .steps li:not(:last-child)::after {
+          display: none;
+        }
+        .cta {
+          margin-top: 96px;
+          padding: 64px 48px;
+          border-radius: 28px;
+        }
       }
 
       /* Aparición al hacer scroll */
