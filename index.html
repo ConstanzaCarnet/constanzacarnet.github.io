@@ -55,7 +55,6 @@
       html {
         -webkit-text-size-adjust: 100%;
         scroll-behavior: smooth;
-        overflow-x: hidden;
       }
       body {
         margin: 0;
@@ -68,20 +67,25 @@
           sans-serif;
         font-size: 16px;
         line-height: 1.55;
-        overflow-x: hidden;
         position: relative;
       }
-      /* Luces de fondo */
-      body::before,
-      body::after {
+      /* Luces de fondo: recortadas dentro de su capa para que nunca
+         agranden el ancho de la página (iOS ignora overflow-x en body) */
+      .glow {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .glow::before,
+      .glow::after {
         content: "";
         position: absolute;
-        z-index: -1;
-        pointer-events: none;
         border-radius: 50%;
         filter: blur(80px);
       }
-      body::before {
+      .glow::before {
         width: 520px;
         height: 520px;
         top: -220px;
@@ -92,7 +96,7 @@
           transparent 70%
         );
       }
-      body::after {
+      .glow::after {
         width: 460px;
         height: 460px;
         top: 520px;
@@ -784,7 +788,7 @@
           opacity: 0.8;
         }
         100% {
-          transform: scale(1.6);
+          transform: scale(1.5);
           opacity: 0;
         }
       }
@@ -968,6 +972,7 @@
     </script>
   </head>
   <body>
+    <div class="glow" aria-hidden="true"></div>
     <div class="wrap">
       <header>
         <div class="brand">
